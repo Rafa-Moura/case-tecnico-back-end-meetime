@@ -3,8 +3,8 @@ spring:
     name: integration-api
   datasource:
     url: jdbc:h2:mem:mydb
-    username: ${DATABASE_USER_NAME}
-    password: ${DATABASE_USER_PASSWORD}
+    username: sa
+    password:
     driverClassName: org.h2.Driver
   h2:
     console:
@@ -15,8 +15,8 @@ spring:
     oauth2:
       client:
         hubspot:
-          client-id: ${HUBSPOT_CLIENT_ID}
-          client-secret: ${HUBSPOT_CLIENT_SECRET}
+          client-id: 0c482b5d-9a67-4059-a5b4-453403bfb32e
+          client-secret: 136eb679-59b1-4870-8016-7f8d158d8864
           scope: crm.objects.contacts.read,crm.objects.contacts.write,oauth
           redirect-uri: http://localhost:8080/auth/hubspot/callback
           authorization-grant-type: authorization_code
