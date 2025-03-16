@@ -2,7 +2,6 @@ package br.com.rafaelmoura.hubspot.integration_api.application.service.auth;
 
 import br.com.rafaelmoura.hubspot.integration_api.application.dto.auth.response.TokenExchangeResponseDTO;
 import br.com.rafaelmoura.hubspot.integration_api.domain.auth.exceptions.TokenExchangeException;
-import br.com.rafaelmoura.hubspot.integration_api.domain.exceptions.SystemException;
 import br.com.rafaelmoura.hubspot.integration_api.infrastructure.httpclient.auth.HubspotAuthClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ public class HubspotAuthServiceImpl implements HubspotAuthService{
     }
 
     @Override
-    public TokenExchangeResponseDTO tokenExchange(String code) throws SystemException {
+    public TokenExchangeResponseDTO tokenExchange(String code) {
         log.info("[HubspotAuthServiceImpl][tokenExchange] - iniciando fluxo de token exchange no HubspotAuthClient. Code: [{}]", code);
 
         if (code.isBlank()) {

@@ -1,4 +1,4 @@
-package br.com.rafaelmoura.hubspot.integration_api.domain.exceptions;
+package br.com.rafaelmoura.hubspot.integration_api.presentation.exceptions;
 
 public class SystemException extends RuntimeException {
     public SystemException(String message) {

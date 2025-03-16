@@ -24,3 +24,8 @@ spring:
           token-uri: https://api.hubapi.com/oauth/v1/token
           introspect-token-uri: https://api.hubapi.com/oauth/v1/access-tokens
           introspect-refresh-token-uri: https://api.hubapi.com/oauth/v1/refresh-tokens
+
+clients:
+  hubspot:
+    contact:
+      uri: https://api.hubapi.com/crm/v3/objects/contacts
