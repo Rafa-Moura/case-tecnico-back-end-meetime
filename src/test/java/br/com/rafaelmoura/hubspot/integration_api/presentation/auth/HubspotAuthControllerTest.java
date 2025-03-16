@@ -1,7 +1,8 @@
 package br.com.rafaelmoura.hubspot.integration_api.presentation.auth;
 
+import br.com.rafaelmoura.hubspot.integration_api.application.dto.auth.response.TokenExchangeResponseDTO;
 import br.com.rafaelmoura.hubspot.integration_api.application.service.auth.HubspotAuthService;
-import br.com.rafaelmoura.hubspot.integration_api.infrastructure.httpclient.auth.configuration.HubspotAuthConfigProperties;
+import br.com.rafaelmoura.hubspot.integration_api.domain.auth.exceptions.TokenExchangeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,9 +28,6 @@ public class HubspotAuthControllerTest {
 
     @MockitoBean
     HubspotAuthService hubspotAuthService;
-
-    @MockitoBean
-    HubspotAuthConfigProperties hubspotAuthConfigProperties;
 
     @InjectMocks
     HubspotAuthController hubspotAuthController;
@@ -56,5 +53,53 @@ public class HubspotAuthControllerTest {
                 .andDo(print());
 
         Mockito.verify(hubspotAuthService, Mockito.times(1)).generateAuthorizationUri();
+    }
+
+    @Test
+    @DisplayName(value = "Deve retornar um objeto do tipo TokenExchangeResponseDTO contendo dados do token exchange")
+    void shouldReturnTokenExchangeResponseDTOSuccess() throws Exception {
+
+        TokenExchangeResponseDTO tokenExchangeResponseDTO =
+                new TokenExchangeResponseDTO("access-token", 10029, "Bearer", "aaaaswwwwwww");
+
+        Mockito.when(hubspotAuthService.tokenExchange(Mockito.anyString())).thenReturn(tokenExchangeResponseDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(HUBSPOT_AUTH_BASE_URL.concat("/v1/token-exchange")).param("code", "code-test"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.access_token").value(tokenExchangeResponseDTO.accessToken()))
+                .andExpect(jsonPath("$.token_type").value(tokenExchangeResponseDTO.tokenType()))
+                .andExpect(jsonPath("$.refresh_token").value(tokenExchangeResponseDTO.refreshToken()))
+                .andExpect(jsonPath("$.expires_in").value(tokenExchangeResponseDTO.expiresIn()))
+                .andDo(print());
+
+        Mockito.verify(hubspotAuthService, Mockito.times(1)).tokenExchange(Mockito.anyString());
+    }
+
+    @Test
+    @DisplayName(value = "Deve retornar um codigo 400 objeto do tipo ErrorDTO quando parametro code nao for informado")
+    void shouldReturnStatus400AndErrorDTOWhenCodeNotExist() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get(HUBSPOT_AUTH_BASE_URL.concat("/v1/token-exchange")))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.title").value("MISSING_PARAMETER_EXCEPTION"))
+                .andExpect(jsonPath("$.message").value("erro durante a requisição. Parâmetro obrigatório: [code] não informado ou inválido"))
+                .andDo(print());
+
+        Mockito.verifyNoInteractions(hubspotAuthService);
+    }
+
+    @Test
+    @DisplayName(value = "Deve retornar um codigo 400 objeto do tipo ErrorDTO quando parametro code estiver vazio")
+    void shouldReturnStatus400AndErrorDTOWhenCodeIsEmpty() throws Exception {
+
+        Mockito.when(hubspotAuthService.tokenExchange("")).thenThrow(new TokenExchangeException("code informado para o token exchange é invalido"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get(HUBSPOT_AUTH_BASE_URL.concat("/v1/token-exchange")).param("code", ""))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.title").value("TOKEN_EXCHANGE_ERROR"))
+                .andExpect(jsonPath("$.message").value("code informado para o token exchange é invalido"))
+                .andDo(print());
+
+        Mockito.verify(hubspotAuthService, Mockito.times(1)).tokenExchange(Mockito.anyString());
     }
 }

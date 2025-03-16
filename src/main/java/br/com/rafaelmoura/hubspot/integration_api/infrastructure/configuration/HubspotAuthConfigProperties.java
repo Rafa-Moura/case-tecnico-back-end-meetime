@@ -1,7 +1,8 @@
-package br.com.rafaelmoura.hubspot.integration_api.infrastructure.httpclient.auth.configuration;
+package br.com.rafaelmoura.hubspot.integration_api.infrastructure.configuration;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class HubspotAuthConfigProperties {
 
     @Value("${spring.security.oauth2.client.hubspot.client-id}")
