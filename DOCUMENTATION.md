@@ -1,5 +1,6 @@
 ## Documentação da API
 A api responde no seguinte base-path: http://localhost:8080
+A documentação via swagger está disponível em: http://localhost:8080/swagger-ui/index.html
 
 ## HubspotAuth
 ### Controller com endpoints para fluxo Oauth2 no Hubspot
