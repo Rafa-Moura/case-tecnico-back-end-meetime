@@ -11,14 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "api/contacts/v1")
+@RequestMapping(value = "api/contacts")
 @Slf4j
 @RequiredArgsConstructor
 public class HubspotContactController {
 
     private final HubspotContactService hubspotContactService;
 
-    @PostMapping
+    @PostMapping(value = "/v1")
     public ResponseEntity<HubspotContactResponseDTO> createContact(@Valid @RequestBody HubspotContactRequestDTO hubspotContactRequestDTO,
                                                                    @RequestHeader(name = "Authorization") String accessToken) {
 

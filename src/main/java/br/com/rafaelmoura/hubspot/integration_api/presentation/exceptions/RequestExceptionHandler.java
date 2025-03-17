@@ -33,12 +33,17 @@ public class RequestExceptionHandler {
 
         ErrorDTO errorDTO = ErrorDTO.builder()
                 .title("MISSING_HEADER_EXCEPTION")
-                .message(ex.getMessage())
+                .message(String.format("Header obrigatório não informado: [%s]", ex.getHeaderName()))
                 .requestDateTime(LocalDateTime.now().toString())
                 .build();
 
         if (ex.getHeaderName().equals("Authorization")) {
             errorDTO.setMessage("Header de autorização invalido ou não informado");
+            return new ResponseEntity<>(errorDTO, HttpStatus.UNAUTHORIZED);
+        }
+
+        if (ex.getHeaderName().equals("X-HubSpot-Signature")) {
+            errorDTO.setMessage("Header de assinatura do webhook invalido ou não informado");
             return new ResponseEntity<>(errorDTO, HttpStatus.UNAUTHORIZED);
         }
 
@@ -60,5 +65,16 @@ public class RequestExceptionHandler {
         }
 
         return new ResponseEntity<>(listErrors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SystemException.class)
+    public ResponseEntity<ErrorDTO> handleSystemException(SystemException ex) {
+        ErrorDTO errorDTO = ErrorDTO.builder()
+                .title("SYSTEM_EXCEPTION")
+                .message("Ocorreu um erro interno. Contate um administrador")
+                .requestDateTime(LocalDateTime.now().toString())
+                .build();
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

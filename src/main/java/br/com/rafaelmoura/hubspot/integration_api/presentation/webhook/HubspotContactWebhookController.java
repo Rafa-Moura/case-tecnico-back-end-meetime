@@ -1,0 +1,34 @@
+package br.com.rafaelmoura.hubspot.integration_api.presentation.webhook;
+
+import br.com.rafaelmoura.hubspot.integration_api.application.dto.webhook.request.CreatedContactWebhookRequestDTO;
+import br.com.rafaelmoura.hubspot.integration_api.application.service.webhook.HubspotContactWebhookService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/webhook/contacts")
+@Slf4j
+@RequiredArgsConstructor
+public class HubspotContactWebhookController {
+
+    private final HubspotContactWebhookService contactWebhookService;
+
+    @PostMapping(value = "/v1")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void webhookContactCreation(@Valid @RequestBody List<CreatedContactWebhookRequestDTO> requestDTO,
+                                                    @RequestHeader(name = "X-HubSpot-Signature") String webhookSignature,
+                                                    @RequestHeader(name = "X-HubSpot-Signature-Version") String webhookSignatureVersion,
+                                                    @RequestHeader(name = "X-HubSpot-Request-Timestamp", required = false) String webhookRequestTimestamp) {
+
+        log.info("[HubspotContactWebhookController][webhookContactCreation] - Evento de criação de contato recebido.");
+
+        contactWebhookService.webhookContactCreation(requestDTO, webhookSignature, webhookSignatureVersion, webhookRequestTimestamp);
+
+        log.info("[HubspotContactWebhookController][webhookContactCreation] - Evento de criação de contato concluido.");
+    }
+}
