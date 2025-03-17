@@ -199,7 +199,7 @@ curl --location 'http://localhost:8080/webhook/contacts/v1' \
 status: 201 CREATED
 ````
 ````
-status: 401 UNAUTHORIZED
+status: 400 BAD_REQUEST
 body: 
 {
     "title": "ERROR_TITLE",
@@ -208,7 +208,7 @@ body:
 }
 ````
 ````
-status: 400 BAD_REQUEST
+status: 401 UNAUTHORIZED
 body: 
 {
     "title": "ERROR_TITLE",
