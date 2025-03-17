@@ -1,0 +1,9 @@
+services:
+  integration-api:
+    image: integration-api:latest
+    container_name: integration-api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"

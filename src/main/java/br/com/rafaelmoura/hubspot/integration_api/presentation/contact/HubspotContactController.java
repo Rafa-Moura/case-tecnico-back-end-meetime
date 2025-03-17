@@ -27,7 +27,7 @@ public class HubspotContactController {
 
         HubspotContactResponseDTO hubspotContactResponseDTO = hubspotContactService.createContact(hubspotContactRequestDTO, accessToken);
 
-        log.info("[HubspotContactController][createContact] - chamando HubspotContactService para criação de contato no hubspot. Email: [{}] ContactId: [{}]",
+        log.info("[HubspotContactController][createContact] - chamada ao HubspotContactService para criação de contato no hubspot concluida. Email: [{}] ContactId: [{}]",
                 hubspotContactRequestDTO.properties().email(), hubspotContactResponseDTO.contactId());
 
         return new ResponseEntity<>(hubspotContactResponseDTO, HttpStatus.CREATED);

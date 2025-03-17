@@ -24,11 +24,19 @@ Maven: Certifique-se de que você possui o Maven instalado em sua máquina.
 
 ## Instalação e execução
 
+### Execução com Maven
 ````
 git clone https://github.com/Rafa-Moura/case-tecnico-back-end-meetime.git
 cd case-tecnico-back-end-meetime
 mvn springboot:run
 ````
+### Execução com docker
+````
+git clone https://github.com/Rafa-Moura/case-tecnico-back-end-meetime.git
+cd case-tecnico-back-end-meetime
+docker compose up
+````
+
 ## Stack utilizada
 
 **Back-end:** Java, Springboot, JPA, H2, Lombok e Validation
