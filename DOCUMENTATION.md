@@ -1,5 +1,6 @@
 ## Documentação da API
 A api responde no seguinte base-path: http://localhost:8080
+A documentação via swagger está disponível em: http://localhost:8080/swagger-ui/index.html
 
 ## HubspotAuth
 ### Controller com endpoints para fluxo Oauth2 no Hubspot
@@ -199,7 +200,7 @@ curl --location 'http://localhost:8080/webhook/contacts/v1' \
 status: 201 CREATED
 ````
 ````
-status: 401 UNAUTHORIZED
+status: 400 BAD_REQUEST
 body: 
 {
     "title": "ERROR_TITLE",
@@ -208,7 +209,7 @@ body:
 }
 ````
 ````
-status: 400 BAD_REQUEST
+status: 401 UNAUTHORIZED
 body: 
 {
     "title": "ERROR_TITLE",
