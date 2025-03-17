@@ -20,6 +20,8 @@ cd case-tecnico-back-end-meetime
 mvn springboot:run
 ````
 #### Execução com docker
+
+Necessário possuir o Docker instalado
 ````
 git clone https://github.com/Rafa-Moura/case-tecnico-back-end-meetime.git
 cd case-tecnico-back-end-meetime
