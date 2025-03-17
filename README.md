@@ -49,7 +49,7 @@ curl --location 'http://localhost:8080/auth/hubspot/v1/authorization'
 status: 200 OK
 body: https://app.hubspot.com/oauth/authorize?client_id=client_id&scope=scopes&redirect_uri=redirectUri
 ````
-
+![endpoint_get_authorization_uri](https://github.com/user-attachments/assets/05546fff-3ae0-461a-8cde-b33b5886baf0)
 
 #### Realiza o token-exchange
 
@@ -76,6 +76,7 @@ body:
 | :---------- | :--------- | :------------------------------------------ |
 | `code`      | `string` | **Obrigatório**. Code informado pelo Hubspot no momento da autorização |
 
+![endpoint_get_token_exchange](https://github.com/user-attachments/assets/6798af96-f546-4e4a-bfa4-267617aebf98)
 ## Contacts
 ### Controller com endpoints para ações do contato no Hubspot
 #### Cria um novo contato no Hubspot
@@ -114,6 +115,7 @@ body:
 | `Authorization`      | `string` | **Obrigatório**. Header de autorização. Deve fornecer o access_token retornado pelo Hubspot no token_exchange |
 | `body`      | `JSON` | **Obrigatório**. Corpo da requisição no formato JSON contendo dados do contato que será criado |
 
+![endpoint_create_contact](https://github.com/user-attachments/assets/b7c31143-de45-452e-a2ad-11e4a2050132)
 ## Webhook
 ### Controller com endpoints para receber webhooks do Hubspot
 #### Recebe uma chamada pelo webhook do Hubspot originada do evento Contact.creation
@@ -152,6 +154,7 @@ status: 201 CREATED
 | `X-Hubspot-Signature-Version`| `String` | **Obrigatório**. Header contendo a versão assinatura do webhook. Valor utilizado para validação de segurança do evento na api.|
 | `X-Hubspot-Request-Timestamp`| `String` | Header contendo a data e hora do evneto do webhook. Utilizado na validação da v3 da assinatura.|
 
+![endpoint_webhook_contacts_creation](https://github.com/user-attachments/assets/15bcb956-485b-42a1-a7be-9dacaf4db3cc)
 ## Stack utilizada
 
 **Back-end:** Java, Springboot, JPA, H2, Lombok e Validation
@@ -169,4 +172,7 @@ Para melhorar a utilização e o ciclo de vida de segurança da aplicação, pod
 ### Segurança:
 
 - Ao gerar o access_token utilizando o code, deveria fazer o introspect do access_token e armazenar na base: User e Refresh_token. Devolvendo ao client (access_token, token_type, expires_in e user)
+  ![sugestao_endpoint_melhoria_token_exchange](https://github.com/user-attachments/assets/15f413f6-0458-4c65-baa9-5c2d1129fc10)
 - Quando a api retornar o client que o token está expirado, o client chama o endpoint de refresh_token passando o user. A aplicação gera novo access_token pelo refresh_token recuperado da base.
+  ![endpoint_refresh_token](https://github.com/user-attachments/assets/0b057f9f-90d7-47cb-8e5e-d83d955c2848)
+
