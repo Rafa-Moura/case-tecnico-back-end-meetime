@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.rafaelmoura.hubspot</groupId>
 	<artifactId>integration-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>integration-api</name>
 	<description>Api desenvolvida para resolução do case tecnico da empresa meetime.</description>
 	<url/>
