@@ -2,7 +2,7 @@ package br.com.rafaelmoura.hubspot.integration_api.application.service.contact;
 
 import br.com.rafaelmoura.hubspot.integration_api.application.dto.contact.request.HubspotContactRequestDTO;
 import br.com.rafaelmoura.hubspot.integration_api.application.dto.contact.response.HubspotContactResponseDTO;
-import br.com.rafaelmoura.hubspot.integration_api.application.mapper.HubspotContactMapper;
+import br.com.rafaelmoura.hubspot.integration_api.application.mapper.contact.HubspotContactMapper;
 import br.com.rafaelmoura.hubspot.integration_api.domain.contact.entities.HubspotContact;
 import br.com.rafaelmoura.hubspot.integration_api.domain.contact.repository.HubspotContactRepository;
 import br.com.rafaelmoura.hubspot.integration_api.infrastructure.httpclient.contact.HubspotContactClient;

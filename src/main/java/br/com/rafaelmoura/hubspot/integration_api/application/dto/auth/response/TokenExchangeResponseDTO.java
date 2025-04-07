@@ -18,8 +18,8 @@ public record TokenExchangeResponseDTO(
         @JsonProperty(value = "token_type")
         @Schema(description = "Tipo do access token", example = "Bearer")
         String tokenType,
-        @JsonProperty(value = "refresh_token")
-        @Schema(description = "Refresh token para gerar novos access tokens", example = "AAAAEEERREERrr1rrr")
-        String refreshToken
+        @JsonProperty(value = "user")
+        @Schema(description = "Email do usuário logado no Hubspot", example = "rfmoura@gmail.com")
+        String user
 ) {
 }

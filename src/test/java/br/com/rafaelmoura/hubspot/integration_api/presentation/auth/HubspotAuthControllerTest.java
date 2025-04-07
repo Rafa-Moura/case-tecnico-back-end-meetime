@@ -60,7 +60,7 @@ public class HubspotAuthControllerTest {
     void shouldReturnTokenExchangeResponseDTOSuccess() throws Exception {
 
         TokenExchangeResponseDTO tokenExchangeResponseDTO =
-                new TokenExchangeResponseDTO("access-token", 10029, "Bearer", "aaaaswwwwwww");
+                new TokenExchangeResponseDTO("access-token", 10029, "Bearer", "rfmoura@gmail.com");
 
         Mockito.when(hubspotAuthService.tokenExchange(Mockito.anyString())).thenReturn(tokenExchangeResponseDTO);
 
@@ -68,7 +68,7 @@ public class HubspotAuthControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.access_token").value(tokenExchangeResponseDTO.accessToken()))
                 .andExpect(jsonPath("$.token_type").value(tokenExchangeResponseDTO.tokenType()))
-                .andExpect(jsonPath("$.refresh_token").value(tokenExchangeResponseDTO.refreshToken()))
+                .andExpect(jsonPath("$.user").value(tokenExchangeResponseDTO.user()))
                 .andExpect(jsonPath("$.expires_in").value(tokenExchangeResponseDTO.expiresIn()))
                 .andDo(print());
 

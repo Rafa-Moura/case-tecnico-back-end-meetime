@@ -1,4 +1,4 @@
-package br.com.rafaelmoura.hubspot.integration_api.application.mapper;
+package br.com.rafaelmoura.hubspot.integration_api.application.mapper.contact;
 
 import br.com.rafaelmoura.hubspot.integration_api.application.dto.contact.response.ContactPropertiesResponseDTO;
 import br.com.rafaelmoura.hubspot.integration_api.application.dto.contact.response.HubspotContactResponseDTO;
